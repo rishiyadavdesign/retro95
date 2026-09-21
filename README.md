@@ -17,6 +17,21 @@ Then open <http://127.0.0.1:4173/>.
 The password fills automatically. Press Enter or click Confirm to open the
 desktop.
 
+## Admin portal
+
+Open `/admin/` to edit profile details, wallpaper, social links, projects, and
+music. The editor is password-protected and stores published content in Upstash
+Redis through Vercel Functions.
+
+In Vercel, install the Upstash Redis Marketplace integration and add:
+
+- `ADMIN_PASSWORD`: the password used to sign in to `/admin/`
+- `ADMIN_SECRET`: a long random value used to sign session cookies
+- `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`: added automatically
+  when the Upstash integration is connected
+
+Redeploy after adding the variables.
+
 ## Deploy to Vercel
 
 Import this GitHub repository into Vercel and keep the Framework Preset set to

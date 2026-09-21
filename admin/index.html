@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#101114">
+  <title>Retro95 Admin</title>
+  <link rel="stylesheet" href="/admin/styles.css">
+  <script src="/admin/admin.js" defer></script>
+</head>
+<body>
+  <main id="login-view" class="login-view" hidden>
+    <form id="login-form" class="login-panel">
+      <div class="brand-mark">R95</div>
+      <div>
+        <h1>Retro95 Admin</h1>
+        <p>Sign in to edit the live portfolio.</p>
+      </div>
+      <label>
+        <span>Password</span>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+      </label>
+      <button class="primary-button" type="submit">Sign in</button>
+      <p id="login-error" class="form-error" role="alert"></p>
+    </form>
+  </main>
+
+  <div id="admin-view" class="admin-shell" hidden>
+    <header class="admin-header">
+      <div class="brand-block">
+        <span class="brand-mark small">R95</span>
+        <div><strong>Site Admin</strong><span id="save-state">All changes saved</span></div>
+      </div>
+      <div class="header-actions">
+        <a class="icon-button" href="/desktop/index.html" target="_blank" title="Open website" aria-label="Open website">↗</a>
+        <button id="logout-button" class="icon-button" type="button" title="Sign out" aria-label="Sign out">⇥</button>
+      </div>
+    </header>
+
+    <nav id="tabs" class="tabs" aria-label="Admin sections">
+      <button type="button" data-tab="profile" class="active">Profile</button>
+      <button type="button" data-tab="appearance">Desktop</button>
+      <button type="button" data-tab="socials">Socials</button>
+      <button type="button" data-tab="projects">Projects</button>
+      <button type="button" data-tab="music">Music</button>
+    </nav>
+
+    <main class="editor">
+      <section class="editor-section active" data-panel="profile">
+        <div class="section-heading"><h1>Profile</h1><p>Home page identity and contact information.</p></div>
+        <div class="form-grid">
+          <label><span>Name</span><input data-path="profile.name" maxlength="120"></label>
+          <label><span>Role</span><input data-path="profile.role" maxlength="120"></label>
+          <label><span>Email</span><input data-path="profile.email" type="email" maxlength="200"></label>
+          <label><span>Availability</span><input data-path="profile.availability" maxlength="160"></label>
+          <label class="full"><span>Bio</span><textarea data-path="profile.bio" rows="5" maxlength="1200"></textarea></label>
+          <label class="full"><span>Portrait URL</span><input data-path="profile.portrait" inputmode="url"></label>
+          <label class="full"><span>Resume URL</span><input data-path="profile.resumeUrl" inputmode="url"></label>
+        </div>
+      </section>
+
+      <section class="editor-section" data-panel="appearance">
+        <div class="section-heading"><h1>Desktop</h1><p>Desktop wallpaper and visual assets.</p></div>
+        <div class="form-grid">
+          <label class="full"><span>Wallpaper URL</span><input data-path="appearance.wallpaper" inputmode="url"></label>
+        </div>
+        <div id="wallpaper-preview" class="media-preview wide"></div>
+      </section>
+
+      <section class="editor-section" data-panel="socials">
+        <div class="section-heading action-heading"><div><h1>Social links</h1><p>Links shown in Home. Instagram and X also update the taskbar.</p></div><button class="add-button" type="button" data-add="socials">+ Add</button></div>
+        <div id="socials-list" class="item-list"></div>
+      </section>
+
+      <section class="editor-section" data-panel="projects">
+        <div class="section-heading action-heading"><div><h1>Projects</h1><p>Add, remove, hide, and reorder portfolio work.</p></div><button class="add-button" type="button" data-add="projects">+ Add</button></div>
+        <div id="projects-list" class="item-list"></div>
+      </section>
+
+      <section class="editor-section" data-panel="music">
+        <div class="section-heading action-heading"><div><h1>Music</h1><p>Manage tracks, covers, artists, and audio files.</p></div><button class="add-button" type="button" data-add="tracks">+ Add</button></div>
+        <div id="tracks-list" class="item-list"></div>
+      </section>
+    </main>
+
+    <footer class="save-bar">
+      <button id="reset-button" class="secondary-button" type="button">Restore defaults</button>
+      <button id="save-button" class="primary-button" type="button">Publish changes</button>
+    </footer>
+  </div>
+
+  <template id="social-template">
+    <article class="item-card" data-kind="socials">
+      <div class="item-toolbar"><strong data-item-title>Social link</strong><div class="reorder-controls"><button type="button" data-move="up" title="Move up" aria-label="Move up">↑</button><button type="button" data-move="down" title="Move down" aria-label="Move down">↓</button><button type="button" data-remove title="Remove" aria-label="Remove">×</button></div></div>
+      <div class="form-grid"><label><span>Key</span><input data-field="id"></label><label><span>Label</span><input data-field="label"></label><label class="full"><span>URL</span><input data-field="url" inputmode="url"></label></div>
+    </article>
+  </template>
+
+  <template id="project-template">
+    <article class="item-card" data-kind="projects">
+      <div class="item-toolbar"><strong data-item-title>Project</strong><div class="reorder-controls"><button type="button" data-move="up" title="Move up" aria-label="Move up">↑</button><button type="button" data-move="down" title="Move down" aria-label="Move down">↓</button><button type="button" data-remove title="Remove" aria-label="Remove">×</button></div></div>
+      <div class="form-grid"><label><span>Title</span><input data-field="title"></label><label><span>Slug / key</span><input data-field="id"></label><label class="full"><span>Description</span><textarea data-field="description" rows="3"></textarea></label><label class="full"><span>Image URL</span><input data-field="image" inputmode="url"></label><label class="full"><span>Project URL</span><input data-field="url" inputmode="url"></label><label class="toggle-row"><input data-field="visible" type="checkbox"><span>Visible on site</span></label></div>
+    </article>
+  </template>
+
+  <template id="track-template">
+    <article class="item-card" data-kind="tracks">
+      <div class="item-toolbar"><strong data-item-title>Track</strong><div class="reorder-controls"><button type="button" data-move="up" title="Move up" aria-label="Move up">↑</button><button type="button" data-move="down" title="Move down" aria-label="Move down">↓</button><button type="button" data-remove title="Remove" aria-label="Remove">×</button></div></div>
+      <div class="form-grid"><label><span>Title</span><input data-field="title"></label><label><span>Artist</span><input data-field="artist"></label><label class="full"><span>Cover URL</span><input data-field="cover" inputmode="url"></label><label class="full"><span>Audio URL</span><input data-field="audio" inputmode="url"></label><label><span>Slug / key</span><input data-field="id"></label><label class="toggle-row"><input data-field="visible" type="checkbox"><span>Visible on site</span></label></div>
+    </article>
+  </template>
+</body>
+</html>

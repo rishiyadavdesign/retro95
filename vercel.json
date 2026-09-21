@@ -2,6 +2,8 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "outputDirectory": ".",
   "rewrites": [
+    { "source": "/admin", "destination": "/admin/index.html" },
+    { "source": "/admin/", "destination": "/admin/index.html" },
     { "source": "/desktop", "destination": "/desktop/index.html" },
     { "source": "/desktop/", "destination": "/desktop/index.html" },
     { "source": "/landing", "destination": "/landing/index.html" },
@@ -26,6 +28,15 @@
     { "source": "/404/", "destination": "/404/index.html" }
   ],
   "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
     {
       "source": "/vendor/(.*)",
       "headers": [

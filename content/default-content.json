@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "profile": {
+    "name": "Robert Stanley",
+    "role": "Web Designer",
+    "email": "robertstanley@yahoo.com",
+    "availability": "Available for hire",
+    "bio": "Designing websites that don't just look good, but actually work. I turn ideas into functional, user-friendly experiences, and I'm all about keeping it clean, simple, and fun. Let's make something awesome together.",
+    "portrait": "/vendor/framerusercontent/images/v6koUYxQNpRHR4Qlbyog588BAQI.png",
+    "resumeUrl": "https://www.docdroid.net/WyjIuyO/fake-resume-pdf"
+  },
+  "appearance": {
+    "wallpaper": "/vendor/framerusercontent/images/zs919a76VN2FpkglNseVvMWSEJ4.jpg"
+  },
+  "socials": [
+    { "id": "instagram", "label": "Instagram", "url": "https://instagram.com" },
+    { "id": "x", "label": "X", "url": "https://x.com/_nick404_" }
+  ],
+  "projects": [
+    {
+      "id": "papernote",
+      "title": "Papernote",
+      "description": "A bright portfolio and service website.",
+      "image": "/vendor/framerusercontent/images/R4Sz0fOFeJUrNxANQl2LyKMEjZk.jpg",
+      "url": "/portfolio/papernote/index.html",
+      "visible": true
+    },
+    {
+      "id": "foodspot",
+      "title": "FoodSpot",
+      "description": "A fast restaurant discovery experience.",
+      "image": "/vendor/framerusercontent/images/j96NyhleF9A2sH3hJOH72lpF8.png",
+      "url": "/portfolio/foodspot/index.html",
+      "visible": true
+    },
+    {
+      "id": "zeto",
+      "title": "Zeto",
+      "description": "A dark portfolio template for creatives.",
+      "image": "/vendor/framerusercontent/images/6wbhOUQ65RhMuUvkTT4zDU4w6k.jpg",
+      "url": "/portfolio/zeto/index.html",
+      "visible": true
+    },
+    {
+      "id": "fluido",
+      "title": "Fluido",
+      "description": "A colorful 3D graphic designer portfolio.",
+      "image": "/vendor/framerusercontent/images/4vbBKK7qV8zGDBG1LYEHbuNgM.jpg",
+      "url": "/portfolio/fluido/index.html",
+      "visible": true
+    }
+  ],
+  "tracks": [
+    {
+      "id": "cruel-angels-thesis",
+      "title": "A Cruel Angel's Thesis - Neon Genesis Evangelion",
+      "artist": "Yoko Takahashi",
+      "cover": "/vendor/framerusercontent/images/eacqb89EPa3h20T4RQ2ASDz9EBc.jpg",
+      "audio": "/vendor/framerusercontent/assets/ghvbW1JDsXyMgZZxspjtJZXa9k.mp3",
+      "visible": true
+    }
+  ]
+}
+
