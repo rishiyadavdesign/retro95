@@ -16,3 +16,9 @@ Then open <http://127.0.0.1:4173/>.
 
 The password fills automatically. Press Enter or click Confirm to open the
 desktop.
+
+## Deploy to Vercel
+
+Import this GitHub repository into Vercel and keep the Framework Preset set to
+`Other`. The site is static and does not need a build command or environment
+variables. Use the repository root as the Root Directory.
