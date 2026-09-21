@@ -1,0 +1,39 @@
+@media (max-width: 809.98px) {
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden !important;
+    overscroll-behavior: none;
+  }
+
+  body {
+    position: fixed;
+    inset: 0;
+  }
+
+  #main,
+  [data-framer-root] {
+    height: 100dvh !important;
+    min-height: 0 !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
+  }
+
+  [data-framer-name="Window"] {
+    width: 100% !important;
+    height: calc(100dvh - 52px) !important;
+    min-height: 0 !important;
+    max-height: calc(100dvh - 52px) !important;
+    overflow: hidden !important;
+  }
+
+  main[data-framer-name^="Content Area"] {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+}
