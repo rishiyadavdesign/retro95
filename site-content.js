@@ -38,6 +38,82 @@
     });
   };
 
+  const setLinkByText = (from, url) => {
+    if (!url) return;
+    document.querySelectorAll("a").forEach((link) => {
+      if (normalizeText(link.textContent) === normalizeText(from)) link.href = url;
+    });
+  };
+
+  function applyBranding(content) {
+    const branding = content.branding || {};
+    if (branding.browserTitle) document.title = branding.browserTitle;
+    replaceMatchingText(document.body, "Retro95", branding.siteName);
+    if (branding.logo) {
+      document.querySelectorAll('link[rel~="icon"], link[rel="apple-touch-icon"]').forEach((link) => link.href = branding.logo);
+      setImageMatches("l6n90Hmo9UTHeRLTaNTZRSoJBac", branding.logo);
+    }
+  }
+
+  function applyDesktop(content) {
+    const desktop = content.desktop || {};
+    document.querySelectorAll("footer").forEach((footer) => {
+      [["Home", desktop.homeLabel], ["Portfolio", desktop.portfolioLabel], ["Contact Me", desktop.contactLabel]]
+        .forEach(([from, to]) => replaceMatchingText(footer, from, to));
+    });
+    const values = [
+      ["My Computer", desktop.computerLabel],
+      ["Built with Framer", desktop.builderLabel], ["Buy This Template", desktop.templateLabel],
+      ["Music", desktop.musicLabel], ["Recycle Bin", desktop.binLabel]
+    ];
+    values.forEach(([from, to]) => replaceMatchingText(document.body, from, to));
+  }
+
+  function applyHome(content) {
+    if (location.pathname !== "/landing/index.html" && location.pathname !== "/landing/") return;
+    const home = content.home || {};
+    setImageMatches("o3GwZDT6le2sn51WJTUP4c60Jg", home.heroImage);
+    setImageMatches("wTkoplegutxUSHEe4nWZHJGnHA", home.tool1Image);
+    setImageMatches("X2BrzKqqCuoq69839mV6KzsQSJM", home.tool2Image);
+    setImageMatches("xIgWtc7daPpvOLDuWTGn71xdOnQ", home.tool3Image);
+    setImageMatches("jnYlTGKIz34DPhCuFhTQgRsOio", home.tool4Image);
+    const setToolType = (name, type) => {
+      document.querySelectorAll("p").forEach((label) => {
+        if (normalizeText(label.textContent) !== name) return;
+        const card = label.closest('[data-framer-name="Variant 1"]');
+        const typeLabel = [...(card?.querySelectorAll("p") || [])].find((item) => item !== label);
+        if (typeLabel && type) typeLabel.textContent = type;
+      });
+    };
+    setToolType("Figma", home.tool1Type);
+    setToolType("Illustrator", home.tool2Type);
+    setToolType("Notion", home.tool3Type);
+    setToolType("Framer", home.tool4Type);
+    setLinkByText("View My Portfolio", home.portfolioUrl);
+    setLinkByText("Got any questions? Contact me!", home.contactUrl);
+    const values = [
+      ["Web Design Services", home.heroTitle], ["Portfolio", home.portfolioNavLabel],
+      ["Services", home.servicesNavLabel], ["Tools", home.toolsNavLabel], ["FAQ", home.faqNavLabel],
+      ["Resume", home.resumeNavLabel], ["My Work", home.workHeading],
+      ["Wanna see more? Check my portfolio page!", home.portfolioPrompt],
+      ["View My Portfolio", home.portfolioButton], ["Web Design", home.service1Title],
+      ["From wireframes to final designs, I’ll craft a site that’s visually stunning and easy to use.", home.service1Description],
+      ["UI/UX Design", home.service2Title],
+      ["Creating seamless, user-focused experiences that make every click count.", home.service2Description],
+      ["Responsive Design", home.service3Title],
+      ["Your site will look amazing on every device—desktop, tablet, or smartphone.", home.service3Description],
+      ["Website Updates & Maintenance", home.service4Title],
+      ["Already have a site? I can keep it fresh, functional, and glitch-free.", home.service4Description],
+      ["Figma", home.tool1Name], ["Illustrator", home.tool2Name], ["Notion", home.tool3Name],
+      ["Productivity Tool", home.tool3Type], ["Framer", home.tool4Name], ["Website Builder", home.tool4Type],
+      ["How much do you charge for a website?", home.faq1],
+      ["Do you offer revisions?", home.faq2], ["Will my website be mobile-friendly?", home.faq3],
+      ["What do you need from me to get started?", home.faq4],
+      ["Got any questions? Contact me!", home.contactCta]
+    ];
+    values.forEach(([from, to]) => replaceMatchingText(document.body, from, to));
+  }
+
   function applyProfile(content) {
     const profile = content.profile || {};
     replaceExactText(document.body, "Robert Stanley", profile.name);
@@ -190,13 +266,26 @@
       const response = await fetch("/api/content", { cache: "no-store" });
       if (!response.ok) return defaults;
       const payload = await response.json();
-      return payload.content || defaults;
+      const stored = payload.content;
+      if (!stored) return defaults;
+      return {
+        ...defaults,
+        ...stored,
+        branding: { ...defaults.branding, ...stored.branding },
+        desktop: { ...defaults.desktop, ...stored.desktop },
+        home: { ...defaults.home, ...stored.home },
+        profile: { ...defaults.profile, ...stored.profile },
+        appearance: { ...defaults.appearance, ...stored.appearance }
+      };
     } catch {
       return defaults;
     }
   }
 
   loadContent().then((content) => {
+    applyBranding(content);
+    applyHome(content);
+    applyDesktop(content);
     applyProfile(content);
     applyAppearance(content);
     applySocials(content);

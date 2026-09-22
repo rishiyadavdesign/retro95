@@ -59,11 +59,40 @@ function cleanItems(items, type) {
 }
 
 function validate(input) {
+  const branding = input?.branding || {};
+  const desktop = input?.desktop || {};
+  const home = input?.home || {};
   const profile = input?.profile || {};
   const appearance = input?.appearance || {};
   const socials = Array.isArray(input?.socials) ? input.socials.slice(0, 20) : [];
   return {
     version: 1,
+    branding: {
+      siteName: cleanText(branding.siteName, 100),
+      browserTitle: cleanText(branding.browserTitle, 160),
+      logo: cleanUrl(branding.logo)
+    },
+    desktop: Object.fromEntries([
+      "homeLabel", "portfolioLabel", "contactLabel", "computerLabel", "builderLabel",
+      "templateLabel", "musicLabel", "binLabel"
+    ].map((key) => [key, cleanText(desktop[key], 100)])),
+    home: {
+      ...Object.fromEntries([
+        "heroTitle", "portfolioNavLabel", "servicesNavLabel", "toolsNavLabel", "faqNavLabel",
+        "resumeNavLabel", "workHeading", "portfolioPrompt", "portfolioButton", "service1Title",
+        "service1Description", "service2Title", "service2Description", "service3Title",
+        "service3Description", "service4Title", "service4Description", "tool1Name", "tool1Type",
+        "tool2Name", "tool2Type", "tool3Name", "tool3Type", "tool4Name", "tool4Type", "faq1",
+        "faq2", "faq3", "faq4", "contactCta"
+      ].map((key) => [key, cleanText(home[key], key.includes("Description") ? 500 : 200)])),
+      heroImage: cleanUrl(home.heroImage),
+      tool1Image: cleanUrl(home.tool1Image),
+      tool2Image: cleanUrl(home.tool2Image),
+      tool3Image: cleanUrl(home.tool3Image),
+      tool4Image: cleanUrl(home.tool4Image),
+      portfolioUrl: cleanUrl(home.portfolioUrl),
+      contactUrl: cleanUrl(home.contactUrl)
+    },
     profile: {
       name: cleanText(profile.name, 120),
       role: cleanText(profile.role, 120),

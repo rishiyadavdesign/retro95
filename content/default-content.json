@@ -1,5 +1,59 @@
 {
   "version": 1,
+  "branding": {
+    "siteName": "Retro95",
+    "browserTitle": "Retro '98 Portfolio",
+    "logo": "/vendor/framerusercontent/images/l6n90Hmo9UTHeRLTaNTZRSoJBac.png"
+  },
+  "desktop": {
+    "homeLabel": "Home",
+    "portfolioLabel": "Portfolio",
+    "contactLabel": "Contact Me",
+    "computerLabel": "My Computer",
+    "builderLabel": "Built with Framer",
+    "templateLabel": "Buy This Template",
+    "musicLabel": "Music",
+    "binLabel": "Recycle Bin"
+  },
+  "home": {
+    "heroTitle": "Web Design Services",
+    "heroImage": "/vendor/framerusercontent/images/o3GwZDT6le2sn51WJTUP4c60Jg.png",
+    "portfolioNavLabel": "Portfolio",
+    "servicesNavLabel": "Services",
+    "toolsNavLabel": "Tools",
+    "faqNavLabel": "FAQ",
+    "resumeNavLabel": "Resume",
+    "workHeading": "My Work",
+    "portfolioPrompt": "Wanna see more? Check my portfolio page!",
+    "portfolioButton": "View My Portfolio",
+    "portfolioUrl": "/portfolio/index.html",
+    "service1Title": "Web Design",
+    "service1Description": "From wireframes to final designs, I’ll craft a site that’s visually stunning and easy to use.",
+    "service2Title": "UI/UX Design",
+    "service2Description": "Creating seamless, user-focused experiences that make every click count.",
+    "service3Title": "Responsive Design",
+    "service3Description": "Your site will look amazing on every device—desktop, tablet, or smartphone.",
+    "service4Title": "Website Updates & Maintenance",
+    "service4Description": "Already have a site? I can keep it fresh, functional, and glitch-free.",
+    "tool1Name": "Figma",
+    "tool1Type": "Design Tool",
+    "tool1Image": "/vendor/framerusercontent/images/wTkoplegutxUSHEe4nWZHJGnHA.png",
+    "tool2Name": "Illustrator",
+    "tool2Type": "Design Tool",
+    "tool2Image": "/vendor/framerusercontent/images/X2BrzKqqCuoq69839mV6KzsQSJM.png",
+    "tool3Name": "Notion",
+    "tool3Type": "Productivity Tool",
+    "tool3Image": "/vendor/framerusercontent/images/xIgWtc7daPpvOLDuWTGn71xdOnQ.png",
+    "tool4Name": "Framer",
+    "tool4Type": "Website Builder",
+    "tool4Image": "/vendor/framerusercontent/images/jnYlTGKIz34DPhCuFhTQgRsOio.png",
+    "faq1": "How much do you charge for a website?",
+    "faq2": "Do you offer revisions?",
+    "faq3": "Will my website be mobile-friendly?",
+    "faq4": "What do you need from me to get started?",
+    "contactCta": "Got any questions? Contact me!",
+    "contactUrl": "/contact/index.html"
+  },
   "profile": {
     "name": "Robert Stanley",
     "role": "Web Designer",
@@ -61,4 +115,3 @@
     }
   ]
 }
-

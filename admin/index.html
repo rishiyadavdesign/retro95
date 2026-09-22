@@ -38,7 +38,9 @@
     </header>
 
     <nav id="tabs" class="tabs" aria-label="Admin sections">
+      <button type="button" data-tab="branding">Branding</button>
       <button type="button" data-tab="profile" class="active">Profile</button>
+      <button type="button" data-tab="home">Home</button>
       <button type="button" data-tab="appearance">Desktop</button>
       <button type="button" data-tab="socials">Socials</button>
       <button type="button" data-tab="projects">Projects</button>
@@ -46,6 +48,16 @@
     </nav>
 
     <main class="editor">
+      <section class="editor-section" data-panel="branding">
+        <div class="section-heading"><h1>Branding</h1><p>Website name, browser title, and logo.</p></div>
+        <div class="form-grid">
+          <label><span>Website name</span><input data-path="branding.siteName" maxlength="100"></label>
+          <label><span>Browser title</span><input data-path="branding.browserTitle" maxlength="160"></label>
+          <label class="full"><span>Logo URL</span><input data-path="branding.logo" inputmode="url"></label>
+        </div>
+        <div id="logo-preview" class="media-preview logo-preview"></div>
+      </section>
+
       <section class="editor-section active" data-panel="profile">
         <div class="section-heading"><h1>Profile</h1><p>Home page identity and contact information.</p></div>
         <div class="form-grid">
@@ -59,12 +71,77 @@
         </div>
       </section>
 
+      <section class="editor-section" data-panel="home">
+        <div class="section-heading"><h1>Home page</h1><p>Edit Home navigation, text, images, services, tools, and FAQ.</p></div>
+
+        <h2 class="group-heading">Hero and navigation</h2>
+        <div class="form-grid">
+          <label><span>Hero title</span><input data-path="home.heroTitle"></label>
+          <label><span>Portfolio navigation</span><input data-path="home.portfolioNavLabel"></label>
+          <label><span>Services navigation</span><input data-path="home.servicesNavLabel"></label>
+          <label><span>Tools navigation</span><input data-path="home.toolsNavLabel"></label>
+          <label><span>FAQ navigation</span><input data-path="home.faqNavLabel"></label>
+          <label><span>Resume navigation</span><input data-path="home.resumeNavLabel"></label>
+          <label class="full"><span>Hero image URL</span><input data-path="home.heroImage" inputmode="url"></label>
+        </div>
+        <div id="hero-preview" class="media-preview wide"></div>
+
+        <h2 class="group-heading">Work section</h2>
+        <div class="form-grid">
+          <label><span>Section heading</span><input data-path="home.workHeading"></label>
+          <label><span>Button text</span><input data-path="home.portfolioButton"></label>
+          <label class="full"><span>Prompt</span><input data-path="home.portfolioPrompt"></label>
+          <label class="full"><span>Portfolio button URL</span><input data-path="home.portfolioUrl" inputmode="url"></label>
+        </div>
+
+        <h2 class="group-heading">Services</h2>
+        <div class="form-grid">
+          <label><span>Service 1 title</span><input data-path="home.service1Title"></label>
+          <label class="full"><span>Service 1 description</span><textarea data-path="home.service1Description" rows="3"></textarea></label>
+          <label><span>Service 2 title</span><input data-path="home.service2Title"></label>
+          <label class="full"><span>Service 2 description</span><textarea data-path="home.service2Description" rows="3"></textarea></label>
+          <label><span>Service 3 title</span><input data-path="home.service3Title"></label>
+          <label class="full"><span>Service 3 description</span><textarea data-path="home.service3Description" rows="3"></textarea></label>
+          <label><span>Service 4 title</span><input data-path="home.service4Title"></label>
+          <label class="full"><span>Service 4 description</span><textarea data-path="home.service4Description" rows="3"></textarea></label>
+        </div>
+
+        <h2 class="group-heading">Tools</h2>
+        <div class="form-grid">
+          <label><span>Tool 1 name</span><input data-path="home.tool1Name"></label><label><span>Tool 1 type</span><input data-path="home.tool1Type"></label><label class="full"><span>Tool 1 image URL</span><input data-path="home.tool1Image" inputmode="url"></label>
+          <label><span>Tool 2 name</span><input data-path="home.tool2Name"></label><label><span>Tool 2 type</span><input data-path="home.tool2Type"></label><label class="full"><span>Tool 2 image URL</span><input data-path="home.tool2Image" inputmode="url"></label>
+          <label><span>Tool 3 name</span><input data-path="home.tool3Name"></label><label><span>Tool 3 type</span><input data-path="home.tool3Type"></label><label class="full"><span>Tool 3 image URL</span><input data-path="home.tool3Image" inputmode="url"></label>
+          <label><span>Tool 4 name</span><input data-path="home.tool4Name"></label><label><span>Tool 4 type</span><input data-path="home.tool4Type"></label><label class="full"><span>Tool 4 image URL</span><input data-path="home.tool4Image" inputmode="url"></label>
+        </div>
+
+        <h2 class="group-heading">FAQ and contact</h2>
+        <div class="form-grid">
+          <label class="full"><span>Question 1</span><input data-path="home.faq1"></label>
+          <label class="full"><span>Question 2</span><input data-path="home.faq2"></label>
+          <label class="full"><span>Question 3</span><input data-path="home.faq3"></label>
+          <label class="full"><span>Question 4</span><input data-path="home.faq4"></label>
+          <label><span>Contact button text</span><input data-path="home.contactCta"></label>
+          <label><span>Contact URL</span><input data-path="home.contactUrl" inputmode="url"></label>
+        </div>
+      </section>
+
       <section class="editor-section" data-panel="appearance">
         <div class="section-heading"><h1>Desktop</h1><p>Desktop wallpaper and visual assets.</p></div>
         <div class="form-grid">
           <label class="full"><span>Wallpaper URL</span><input data-path="appearance.wallpaper" inputmode="url"></label>
         </div>
         <div id="wallpaper-preview" class="media-preview wide"></div>
+        <h2 class="group-heading">Desktop labels</h2>
+        <div class="form-grid">
+          <label><span>Home button</span><input data-path="desktop.homeLabel"></label>
+          <label><span>Portfolio button</span><input data-path="desktop.portfolioLabel"></label>
+          <label><span>Contact button</span><input data-path="desktop.contactLabel"></label>
+          <label><span>Computer icon</span><input data-path="desktop.computerLabel"></label>
+          <label><span>Builder icon</span><input data-path="desktop.builderLabel"></label>
+          <label><span>Template icon</span><input data-path="desktop.templateLabel"></label>
+          <label><span>Music icon</span><input data-path="desktop.musicLabel"></label>
+          <label><span>Recycle Bin icon</span><input data-path="desktop.binLabel"></label>
+        </div>
       </section>
 
       <section class="editor-section" data-panel="socials">

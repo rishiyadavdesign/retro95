@@ -12,6 +12,18 @@
     const target = keys.reduce((value, key) => value[key] ||= {}, object);
     target[last] = value;
   };
+  const mergeContent = (defaults, saved = {}) => ({
+    ...defaults,
+    ...saved,
+    branding: { ...defaults.branding, ...saved.branding },
+    desktop: { ...defaults.desktop, ...saved.desktop },
+    home: { ...defaults.home, ...saved.home },
+    profile: { ...defaults.profile, ...saved.profile },
+    appearance: { ...defaults.appearance, ...saved.appearance },
+    socials: saved.socials || defaults.socials,
+    projects: saved.projects || defaults.projects,
+    tracks: saved.tracks || defaults.tracks
+  });
 
   function setDirty(value = true) {
     state.dirty = value;
@@ -32,7 +44,7 @@
     state.defaults = await fetch("/content/default-content.json").then((response) => response.json());
     const payload = await request("/api/content", { cache: "no-store" });
     state.configured = payload.configured !== false;
-    state.content = clone(payload.content || state.defaults);
+    state.content = clone(mergeContent(state.defaults, payload.content));
     render();
     if (!state.configured) saveState.textContent = "Storage setup required";
   }
@@ -43,6 +55,10 @@
     });
     const wallpaper = state.content.appearance?.wallpaper;
     document.querySelector("#wallpaper-preview").style.backgroundImage = wallpaper ? `url("${wallpaper.replace(/"/g, "%22")}")` : "none";
+    const logo = state.content.branding?.logo;
+    document.querySelector("#logo-preview").style.backgroundImage = logo ? `url("${logo.replace(/"/g, "%22")}")` : "none";
+    const hero = state.content.home?.heroImage;
+    document.querySelector("#hero-preview").style.backgroundImage = hero ? `url("${hero.replace(/"/g, "%22")}")` : "none";
   }
 
   function renderList(kind) {
@@ -107,7 +123,7 @@
     const input = event.target;
     if (input.dataset.path) {
       setPath(state.content, input.dataset.path, input.value);
-      if (input.dataset.path === "appearance.wallpaper") renderFields();
+      if (["appearance.wallpaper", "branding.logo", "home.heroImage"].includes(input.dataset.path)) renderFields();
       setDirty();
       return;
     }
@@ -188,4 +204,3 @@
     document.querySelector("#login-error").textContent = "Admin API is unavailable on this deployment.";
   });
 })();
-
