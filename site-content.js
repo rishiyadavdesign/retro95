@@ -121,24 +121,67 @@
 
   function renderMusic(content) {
     if (location.pathname !== "/music/index.html") return;
-    const main = document.querySelector('main[data-framer-name^="Content Area"]');
-    if (!main) return;
-    main.closest('[data-framer-name="Window"]')?.classList.add("managed-music-window");
     const tracks = (content.tracks || []).filter((item) => item.visible !== false);
-    main.innerHTML = `
-      <h1 class="managed-music-heading">Music</h1>
-      <div class="managed-track-list">
-        ${tracks.map((track) => `
-          <article class="managed-track">
-            <img loading="lazy" src="${escapeHtml(track.cover)}" alt="${escapeHtml(track.title)}">
-            <div>
-              <h2>${escapeHtml(track.title)}</h2>
-              <p>${escapeHtml(track.artist)}</p>
-              <audio controls preload="metadata" src="${escapeHtml(track.audio)}"></audio>
-            </div>
-          </article>
-        `).join("")}
-      </div>`;
+    const originals = [...document.querySelectorAll('[data-framer-name="Song 1"]')];
+
+    const formatTime = (seconds) => {
+      if (!Number.isFinite(seconds)) return "0:00";
+      const minutes = Math.floor(seconds / 60);
+      return `${minutes}:${String(Math.floor(seconds % 60)).padStart(2, "0")}`;
+    };
+
+    const updateSong = (song, track, index) => {
+      song.hidden = !track;
+      if (!track) return;
+      song.dataset.managedTrack = String(index);
+      song.querySelectorAll("img").forEach((image) => {
+        image.src = track.cover;
+        image.alt = track.title;
+        image.removeAttribute("srcset");
+      });
+      song.querySelectorAll("h2").forEach((heading) => heading.textContent = track.title);
+      const details = song.querySelector('[data-framer-name="TItle + Artist"]');
+      details?.querySelectorAll(":scope > p, :scope > div > p").forEach((artist) => artist.textContent = track.artist);
+      const artist = details?.querySelector('.framer-x5acua p');
+      if (artist) artist.textContent = track.artist;
+      song.querySelectorAll("section").forEach((section) => section.style.opacity = "1");
+
+      const audio = song.querySelector("audio");
+      if (!audio) return;
+      audio.pause();
+      audio.autoplay = false;
+      audio.src = track.audio;
+      const player = audio.parentElement;
+      const play = player?.querySelector('[aria-label="play audio"], [aria-label="pause audio"]');
+      const time = player?.querySelector("p");
+      const range = player?.querySelector('input[type="range"]');
+      const refresh = () => {
+        if (time) time.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+        if (range) {
+          range.max = Number.isFinite(audio.duration) ? audio.duration : 0;
+          range.value = audio.currentTime || 0;
+        }
+      };
+      play?.addEventListener("click", () => audio.paused ? audio.play() : audio.pause());
+      audio.addEventListener("play", () => play?.setAttribute("aria-label", "pause audio"));
+      audio.addEventListener("pause", () => play?.setAttribute("aria-label", "play audio"));
+      audio.addEventListener("loadedmetadata", refresh);
+      audio.addEventListener("timeupdate", refresh);
+      range?.addEventListener("input", () => { audio.currentTime = Number(range.value); });
+      refresh();
+    };
+
+    originals.forEach((original) => {
+      original.parentElement?.querySelectorAll('[data-managed-song-clone="true"]').forEach((clone) => clone.remove());
+      updateSong(original, tracks[0], 0);
+      tracks.slice(1).forEach((track, index) => {
+        const clone = original.cloneNode(true);
+        clone.dataset.managedSongClone = "true";
+        clone.classList.add("managed-song-clone");
+        original.parentElement?.append(clone);
+        updateSong(clone, track, index + 1);
+      });
+    });
   }
 
   async function loadContent() {
