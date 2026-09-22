@@ -16,8 +16,12 @@
     "binLabel": "Recycle Bin"
   },
   "home": {
+    "backgroundImage": "/vendor/framerusercontent/images/CY9nFVcElQuS0aRbAPoUP4Q5xU.jpeg",
     "heroTitle": "Web Design Services",
     "heroImage": "/vendor/framerusercontent/images/o3GwZDT6le2sn51WJTUP4c60Jg.png",
+    "verticalBannerImage": "/vendor/framerusercontent/images/H5oK06Nb4Ox2XCK3VecPGFw3g.png",
+    "taskbarMascotImage": "/vendor/framerusercontent/images/hB5DJxvF67UvRc6cAlRWb4sHM.png",
+    "profileImagePosition": "center",
     "portfolioNavLabel": "Portfolio",
     "servicesNavLabel": "Services",
     "toolsNavLabel": "Tools",

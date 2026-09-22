@@ -86,6 +86,10 @@ function validate(input) {
         "faq2", "faq3", "faq4", "contactCta"
       ].map((key) => [key, cleanText(home[key], key.includes("Description") ? 500 : 200)])),
       heroImage: cleanUrl(home.heroImage),
+      backgroundImage: cleanUrl(home.backgroundImage),
+      verticalBannerImage: cleanUrl(home.verticalBannerImage),
+      taskbarMascotImage: cleanUrl(home.taskbarMascotImage),
+      profileImagePosition: ["center", "top", "bottom", "left", "right"].includes(home.profileImagePosition) ? home.profileImagePosition : "center",
       tool1Image: cleanUrl(home.tool1Image),
       tool2Image: cleanUrl(home.tool2Image),
       tool3Image: cleanUrl(home.tool3Image),

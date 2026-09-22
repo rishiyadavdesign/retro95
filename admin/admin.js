@@ -53,12 +53,19 @@
     document.querySelectorAll("[data-path]").forEach((input) => {
       input.value = getPath(state.content, input.dataset.path) ?? "";
     });
-    const wallpaper = state.content.appearance?.wallpaper;
-    document.querySelector("#wallpaper-preview").style.backgroundImage = wallpaper ? `url("${wallpaper.replace(/"/g, "%22")}")` : "none";
-    const logo = state.content.branding?.logo;
-    document.querySelector("#logo-preview").style.backgroundImage = logo ? `url("${logo.replace(/"/g, "%22")}")` : "none";
-    const hero = state.content.home?.heroImage;
-    document.querySelector("#hero-preview").style.backgroundImage = hero ? `url("${hero.replace(/"/g, "%22")}")` : "none";
+    const preview = (selector, value, position = "center") => {
+      const element = document.querySelector(selector);
+      if (!element) return;
+      element.style.backgroundImage = value ? `url("${value.replace(/"/g, "%22")}")` : "none";
+      element.style.backgroundPosition = position;
+    };
+    preview("#wallpaper-preview", state.content.appearance?.wallpaper);
+    preview("#logo-preview", state.content.branding?.logo);
+    preview("#profile-preview", state.content.profile?.portrait, state.content.home?.profileImagePosition);
+    preview("#background-preview", state.content.home?.backgroundImage);
+    preview("#hero-preview", state.content.home?.heroImage);
+    preview("#vertical-banner-preview", state.content.home?.verticalBannerImage);
+    preview("#mascot-preview", state.content.home?.taskbarMascotImage);
   }
 
   function renderList(kind) {
@@ -84,7 +91,16 @@
     renderList("socials");
     renderList("projects");
     renderList("tracks");
+    activateTab(location.hash.slice(1) || "profile");
     setDirty(false);
+  }
+
+  function activateTab(name) {
+    const button = document.querySelector(`[data-tab="${CSS.escape(name)}"]`);
+    if (!button) return;
+    document.querySelectorAll("[data-tab]").forEach((item) => item.classList.toggle("active", item === button));
+    document.querySelectorAll("[data-panel]").forEach((panel) => panel.classList.toggle("active", panel.dataset.panel === name));
+    button.scrollIntoView({ block: "nearest", inline: "nearest" });
   }
 
   function addItem(kind) {
@@ -115,15 +131,18 @@
   document.querySelector("#tabs").addEventListener("click", (event) => {
     const button = event.target.closest("[data-tab]");
     if (!button) return;
-    document.querySelectorAll("[data-tab]").forEach((item) => item.classList.toggle("active", item === button));
-    document.querySelectorAll("[data-panel]").forEach((panel) => panel.classList.toggle("active", panel.dataset.panel === button.dataset.tab));
+    history.replaceState(null, "", `#${button.dataset.tab}`);
+    activateTab(button.dataset.tab);
   });
 
   document.addEventListener("input", (event) => {
     const input = event.target;
     if (input.dataset.path) {
       setPath(state.content, input.dataset.path, input.value);
-      if (["appearance.wallpaper", "branding.logo", "home.heroImage"].includes(input.dataset.path)) renderFields();
+      if ([
+        "appearance.wallpaper", "branding.logo", "profile.portrait", "home.profileImagePosition",
+        "home.backgroundImage", "home.heroImage", "home.verticalBannerImage", "home.taskbarMascotImage"
+      ].includes(input.dataset.path)) renderFields();
       setDirty();
       return;
     }

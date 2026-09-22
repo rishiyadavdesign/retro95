@@ -74,6 +74,19 @@
       <section class="editor-section" data-panel="home">
         <div class="section-heading"><h1>Home page</h1><p>Edit Home navigation, text, images, services, tools, and FAQ.</p></div>
 
+        <h2 class="group-heading">Profile</h2>
+        <div class="form-grid">
+          <label><span>Name</span><input data-path="profile.name" maxlength="120"></label>
+          <label><span>Role</span><input data-path="profile.role" maxlength="120"></label>
+          <label><span>Email</span><input data-path="profile.email" type="email" maxlength="200"></label>
+          <label><span>Availability</span><input data-path="profile.availability" maxlength="160"></label>
+          <label class="full"><span>Bio</span><textarea data-path="profile.bio" rows="5" maxlength="1200"></textarea></label>
+          <label class="full"><span>Profile image URL</span><input data-path="profile.portrait" inputmode="url"></label>
+          <label><span>Image position</span><select data-path="home.profileImagePosition"><option value="center">Center</option><option value="top">Top</option><option value="bottom">Bottom</option><option value="left">Left</option><option value="right">Right</option></select></label>
+          <label><span>Resume URL</span><input data-path="profile.resumeUrl" inputmode="url"></label>
+        </div>
+        <div id="profile-preview" class="media-preview profile-preview"></div>
+
         <h2 class="group-heading">Hero and navigation</h2>
         <div class="form-grid">
           <label><span>Hero title</span><input data-path="home.heroTitle"></label>
@@ -82,9 +95,12 @@
           <label><span>Tools navigation</span><input data-path="home.toolsNavLabel"></label>
           <label><span>FAQ navigation</span><input data-path="home.faqNavLabel"></label>
           <label><span>Resume navigation</span><input data-path="home.resumeNavLabel"></label>
-          <label class="full"><span>Hero image URL</span><input data-path="home.heroImage" inputmode="url"></label>
+          <label class="full"><span>Window background image URL</span><input data-path="home.backgroundImage" inputmode="url"></label>
+          <label class="full"><span>Horizontal banner image URL</span><input data-path="home.heroImage" inputmode="url"></label>
+          <label class="full"><span>Vertical banner image URL</span><input data-path="home.verticalBannerImage" inputmode="url"></label>
+          <label class="full"><span>Taskbar mascot image URL</span><input data-path="home.taskbarMascotImage" inputmode="url"></label>
         </div>
-        <div id="hero-preview" class="media-preview wide"></div>
+        <div class="preview-grid"><div id="background-preview" class="media-preview tall"></div><div id="hero-preview" class="media-preview wide"></div><div id="vertical-banner-preview" class="media-preview tall"></div><div id="mascot-preview" class="media-preview mascot-preview"></div></div>
 
         <h2 class="group-heading">Work section</h2>
         <div class="form-grid">

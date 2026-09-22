@@ -72,7 +72,13 @@
   function applyHome(content) {
     if (location.pathname !== "/landing/index.html" && location.pathname !== "/landing/") return;
     const home = content.home || {};
+    setImageMatches("CY9nFVcElQuS0aRbAPoUP4Q5xU", home.backgroundImage);
     setImageMatches("o3GwZDT6le2sn51WJTUP4c60Jg", home.heroImage);
+    setImageMatches("H5oK06Nb4Ox2XCK3VecPGFw3g", home.verticalBannerImage);
+    setImageMatches("hB5DJxvF67UvRc6cAlRWb4sHM", home.taskbarMascotImage);
+    document.querySelectorAll('img[src*="v6koUYxQNpRHR4Qlbyog588BAQI"]').forEach((image) => {
+      image.style.objectPosition = home.profileImagePosition || "center";
+    });
     setImageMatches("wTkoplegutxUSHEe4nWZHJGnHA", home.tool1Image);
     setImageMatches("X2BrzKqqCuoq69839mV6KzsQSJM", home.tool2Image);
     setImageMatches("xIgWtc7daPpvOLDuWTGn71xdOnQ", home.tool3Image);
