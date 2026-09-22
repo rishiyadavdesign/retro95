@@ -4,8 +4,8 @@ const KEY = "retro95:site-content";
 const MAX_BODY_SIZE = 200000;
 
 function redisConfig() {
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  const url = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
   return url && token ? { url: url.replace(/\/$/, ""), token } : null;
 }
 
@@ -105,4 +105,3 @@ export default async function handler(request, response) {
     return response.status(500).json({ error: error.message || "Server error" });
   }
 }
-

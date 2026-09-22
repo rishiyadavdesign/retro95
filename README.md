@@ -28,7 +28,8 @@ In Vercel, install the Upstash Redis Marketplace integration and add:
 - `ADMIN_PASSWORD`: the password used to sign in to `/admin/`
 - `ADMIN_SECRET`: a long random value used to sign session cookies
 - `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`: added automatically
-  when the Upstash integration is connected
+  when the Upstash integration is connected. The older `KV_REST_API_URL` and
+  `KV_REST_API_TOKEN` names are supported too.
 
 Redeploy after adding the variables.
 
